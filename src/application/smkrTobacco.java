@@ -1,6 +1,5 @@
 package application;
 
-import application.MainApp;
 import javafx.scene.image.*;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
@@ -11,11 +10,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class smkrTobacco extends Thread implements Initializable{
-
-	public MainApp main;
 	
     @FXML
-    private ImageView image;
+    private ImageView tobacco;
     
     @Override
     public void initialize(URL url,ResourceBundle rb) {
@@ -25,14 +22,16 @@ public class smkrTobacco extends Thread implements Initializable{
 	public void run() {
 		
         try {
-            Thread.currentThread().sleep(5000);
+            Thread.sleep(3000);
          } catch (Exception e) {
             System.out.println(e);
          }
 		
-		image.setImage(new Image("file:///Users/linzichao/Desktop/Java/OS_smoker/src/M.png"));
+		tobacco.setImage(new Image("file:src/image/match.png"));
 		this.move();
 		System.out.println("hi");
+		
+		
 		
 	}
 	
@@ -40,9 +39,9 @@ public class smkrTobacco extends Thread implements Initializable{
     	
 		TranslateTransition fade = new TranslateTransition();
 		fade.setDuration(Duration.seconds(10));
-		fade.setNode(image);
+		fade.setNode(tobacco);
 		
-		fade.setToY(-200);
+		fade.setToY(-100);
 		fade.setToX(100);
 		
 		fade.play();

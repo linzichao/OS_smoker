@@ -15,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
 import application.smkrTobacco;
-import application.TestController;
 
 
 public class MainApp extends Application {
@@ -24,19 +23,19 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
     
     
-    public Image image; 
-    public ImageView imageview1;
+//    public Image image; 
+//    public ImageView imageview1;
     public smkrTobacco smoker;
     
     @Override
     public void start(Stage primaryStage) {
     
-    		this.image = new Image("file:///Users/linzichao/Desktop/Java/OS_smoker/src/T.png"); 
-        this.imageview1 = new ImageView(image);
+//    	  this.image = new Image("file:///Users/linzichao/Desktop/Java/OS_smoker/src/T.png"); 
+//        this.imageview1 = new ImageView(image);
     		
         
         smoker = new smkrTobacco();
-        smoker.main = this;
+
         
         
 //        final Button startButton = new Button("Start");
@@ -49,13 +48,13 @@ public class MainApp extends Application {
  
         
     		this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
+        this.primaryStage.setTitle("OS_chainsmoker");
         
-        this.primaryStage.setHeight(600);
+        this.primaryStage.setHeight(700);
         this.primaryStage.setWidth(800);
         
-        this.imageview1.setX(350);
-        this.imageview1.setY(325);
+//        this.imageview1.setX(350);
+//        this.imageview1.setY(325);
        
 //        Group root = new Group(imageview1,startButton);
 //        Scene scene = new Scene(root, 600, 500);
@@ -95,7 +94,7 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/Test.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/Mainview.fxml"));
             
             loader.setController(smoker);
             smoker.start();
