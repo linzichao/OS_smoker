@@ -64,8 +64,8 @@ class Agent{
 		paper = false;
 		match = false;
 	}
-	synchronized boolean getIngredients(int code,String name){
-		while(true){
+	synchronized void getIngredients(int code,String name){
+		
 			int need =10;
 			String in_table="";
 			if(tobacco == false){
@@ -98,34 +98,46 @@ class Agent{
 				System.out.println("Agent delivers: "+ in_table +" in the table");
 				System.out.println("Smoker : " +name+" has "+smoker_own+" and is ready to smoke");
 				try{
-					Thread.sleep(time);
+					Thread.sleep(1000);
 					
 				}catch(InterruptedException e){}
 				
 				placeIngredients();
 				notifyAll();
+			
+			}else {
+				
+				try{
+					Thread.sleep(1000);					
+				}catch(InterruptedException e){}
+				
 			}
-		}
+		
 	}
 }
 class Smoker extends Thread{
 		Agent a;
 		int my_Ingred;
 		String name;
+		
 		public Smoker(Agent a,String name ,int my_Ingred){
 			this.a = a;
 			this.name = name;
-			this.my_Ingred = my_Ingred;
-			
+			this.my_Ingred = my_Ingred;			
 		}
+		
 		public void run(){
 			
-			if(!a.getIngredients(my_Ingred,name)){
-			try{
-				wait();
-			}catch(InterruptedException e){}
-		 }
-	}
+			while(true) {
+				a.getIngredients(my_Ingred,name);
+//				try{
+//					wait();
+//				}catch(InterruptedException e){
+//					
+//				}
+			}
+		
+		}
 }
 
 
