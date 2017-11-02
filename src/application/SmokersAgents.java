@@ -1,7 +1,24 @@
-//package application;
+    /// <summary>
+    /// File record modification
+	/// 
+	/// 1. Created by 104703033
+	/// 2. Modified by 104703042 : Implement GUI interface
+	///
+    /// </summary>
+
+package application;
 
 import java.util.Random;
 import org.apache.commons.math3.distribution.PoissonDistribution; 
+
+/// GUI Library
+import javafx.scene.image.*;
+import javafx.fxml.FXML;
+import javafx.util.Duration;
+import javafx.animation.TranslateTransition;
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
 public class SmokersAgents{
@@ -100,11 +117,21 @@ class Table {
 	}
 }
 
-class Agent extends Thread {
-
+class Agent extends Thread implements Initializable{
+	
 	private Table table;
 	private String myIngred;
 
+	/* GUI items */
+    @FXML
+    private ImageView tobacco;
+    
+    @Override
+    public void initialize(URL url,ResourceBundle rb) {
+    	
+    }
+	
+	
 	/* constructor */
 	public Agent(Table table, String name) {
 		this.table = table;
@@ -113,7 +140,9 @@ class Agent extends Thread {
 
 
 	public void run() {
+		//tobacco.setImage(new Image("file:src/image/match.png"));
 		while(true) {
+			this.move(); // GUI image motion
 			putIngred();
 		}
 	}
@@ -126,6 +155,19 @@ class Agent extends Thread {
 			table.getIngred(myIngred);
 		//}
 	}
+	
+	/* GUI Image motion */
+    public void move() {
+    	
+		TranslateTransition fade = new TranslateTransition();
+		fade.setDuration(Duration.seconds(10));
+		fade.setNode(tobacco);	
+		fade.setToY(-100);
+		fade.setToX(100);	
+		fade.play();
+    	
+    }
+	
 }
 
 

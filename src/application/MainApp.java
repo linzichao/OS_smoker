@@ -14,7 +14,6 @@ import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
-import application.smkrTobacco;
 
 
 public class MainApp extends Application {
@@ -22,21 +21,18 @@ public class MainApp extends Application {
 	private Stage primaryStage;
     private BorderPane rootLayout;
     
-    
-//    public Image image; 
-//    public ImageView imageview1;
+    public Agent agent;
+    public static Table table;
     public smkrTobacco smoker;
     
     @Override
     public void start(Stage primaryStage) {
     
-//    	  this.image = new Image("file:///Users/linzichao/Desktop/Java/OS_smoker/src/T.png"); 
-//        this.imageview1 = new ImageView(image);
-    		
-        
-        smoker = new smkrTobacco();
+    		table = new Table();
+    	
+        agent = new Agent(table, "TOBACCO");
 
-        
+        smoker = new smkrTobacco();
         
 //        final Button startButton = new Button("Start");
 //        startButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -53,18 +49,13 @@ public class MainApp extends Application {
         this.primaryStage.setHeight(700);
         this.primaryStage.setWidth(800);
         
-//        this.imageview1.setX(350);
-//        this.imageview1.setY(325);
-       
-//        Group root = new Group(imageview1,startButton);
-//        Scene scene = new Scene(root, 600, 500);
         
         initRootLayout();
     
         showPersonOverview();
+        
+        agent.start();
         		
-//        this.primaryStage.setScene(scene);
-//        this.primaryStage.show();
         
     }
 
@@ -94,10 +85,8 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/Mainview.fxml"));
-            
-            loader.setController(smoker);
-            smoker.start();
+            loader.setLocation(MainApp.class.getResource("view/Mainview.fxml"));          
+            loader.setController(agent);
             
             AnchorPane personOverview = (AnchorPane) loader.load();
 
