@@ -203,6 +203,9 @@ class Agent extends Thread implements Initializable{
     @FXML
     private ImageView tobacco;
     
+    @FXML
+    private ImageView match;
+    
     @Override
     public void initialize(URL url,ResourceBundle rb) {
     	
@@ -216,8 +219,8 @@ class Agent extends Thread implements Initializable{
 
 	public void run() {
 		//tobacco.setImage(new Image("file:src/image/match.png"));
-		while(true) {
-			this.move(); // GUI image motion
+		while(true) {    
+			this.moveMatch(); // GUI image motion
 			putIngred();
 		}
 	}
@@ -230,7 +233,7 @@ class Agent extends Thread implements Initializable{
 	}
 	
 	/* GUI Image motion */
-    public void move() {
+    public void moveTobacco() {
     	
 		TranslateTransition fade = new TranslateTransition();
 		fade.setDuration(Duration.seconds(10));
@@ -241,5 +244,16 @@ class Agent extends Thread implements Initializable{
     	
     }
 	
+    public void moveMatch() {
+    	
+		TranslateTransition fade = new TranslateTransition();
+		fade.setDuration(Duration.seconds(10));
+		fade.setNode(match);	
+		fade.setToY(-100);
+		fade.setToX(100);	
+		fade.play();
+    	
+    }
+    
 }
    

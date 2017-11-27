@@ -25,8 +25,8 @@ public class MainApp extends Application {
 	private Stage primaryStage;
     public BorderPane rootLayout;
     
-    public Agent agent = new Agent(table, "TOBACCO");;
-    public static Table table;
+    public static Table table = new Table();
+    public Agent agent = new Agent(MainApp.table, "TOBACCO");
     public smkrTobacco smoker;
     
     public startController _start;
@@ -34,7 +34,6 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
     
-    		table = new Table();
     	
         smoker = new smkrTobacco();
         
