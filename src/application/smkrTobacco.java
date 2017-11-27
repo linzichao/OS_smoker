@@ -58,32 +58,32 @@ public class smkrTobacco extends Thread implements Initializable{
 	
 }
 
-class startController implements Initializable{
-
-	@FXML
-	private Button startButton;
-    
-    @Override
-    public void initialize(URL url,ResourceBundle rb) {
-    	
-    }
-    
-    @FXML protected void handleSubmitButtonAction(ActionEvent event) {
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/Mainview.fxml"));          
-            //loader.setController(_start);
-            
-            AnchorPane personOverview = (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
-            MainApp.rootLayout.setCenter(personOverview);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-	
-}
+//class startController implements Initializable{
+//
+//	@FXML
+//	private Button startButton;
+//    
+//    @Override
+//    public void initialize(URL url,ResourceBundle rb) {
+//    	
+//    }
+//    
+//    @FXML protected void handleSubmitButtonAction(ActionEvent event) {
+//        try {
+//            // Load person overview.
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(MainApp.class.getResource("view/Mainview.fxml"));          
+//            //loader.setController(_start);
+//            
+//            AnchorPane personOverview = (AnchorPane) loader.load();
+//            
+//            // Set person overview into the center of root layout.
+//            MainApp.rootLayout.setCenter(personOverview);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    
+//	
+//}
 

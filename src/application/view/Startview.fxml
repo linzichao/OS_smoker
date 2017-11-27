@@ -1,31 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?language javascript?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="319.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="startButton" layoutX="179.0" layoutY="233.0" mnemonicParsing="false" text="Start" onAction="#handleSubmitButtonAction"/>
-         <fx:script>
-         	 
-			 var java = Packages.java;  
-			 var javafx = Packages.javafx;
-             
-             function submit() {  
-  				java.lang.System.out.println("Submit button pressed");  
-			 }
-			 
-             
-   		</fx:script>
-      <StackPane layoutX="224.0" layoutY="77.0" prefHeight="150.0" prefWidth="181.0" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="247.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../image/match.png" />
-         </image>
-      </ImageView>
+      <AnchorPane layoutX="452.0" layoutY="551.0" prefHeight="41.0" prefWidth="153.0">
+         <children>
+            <Button fx:id="startButton" mnemonicParsing="false" onAction="#handleSubmitButtonAction" prefHeight="41.0" prefWidth="153.0" text="Start Smoking!" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="63.0" layoutY="104.0" prefHeight="135.0" prefWidth="326.0">
+         <children>
+            <Text fill="WHITE" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="作業系統期末專案" wrappingWidth="383.0">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="14.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="104703042 資科三 林資超">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="14.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="104703033 資科三 張育翔">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="14.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="104703036 資科三 張哲瑜">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

@@ -1,9 +1,13 @@
 package application;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -19,9 +23,9 @@ import javafx.scene.control.Button;
 public class MainApp extends Application {
 
 	private Stage primaryStage;
-    public static BorderPane rootLayout;
+    public BorderPane rootLayout;
     
-    public Agent agent;
+    public Agent agent = new Agent(table, "TOBACCO");;
     public static Table table;
     public smkrTobacco smoker;
     
@@ -32,8 +36,6 @@ public class MainApp extends Application {
     
     		table = new Table();
     	
-        agent = new Agent(table, "TOBACCO");
-
         smoker = new smkrTobacco();
         
         _start = new startController();
@@ -51,14 +53,14 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("OS_chainsmoker");
         
         this.primaryStage.setHeight(700);
-        this.primaryStage.setWidth(800);
+        this.primaryStage.setWidth(1000);
         
         
         initRootLayout();
     
-        showPersonOverview();
+        startOverview();
         
-        agent.start();
+        
         		
         
     }
@@ -83,9 +85,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Shows the person overview inside the root layout.
+     * Shows the start overview inside the root layout.
      */
-    public void showPersonOverview() {
+    public void startOverview() {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
@@ -93,13 +95,55 @@ public class MainApp extends Application {
             loader.setController(_start);
             
             AnchorPane personOverview = (AnchorPane) loader.load();
-
+            
+            personOverview.setStyle(
+            		"-fx-background-image: url(" + "'@../../image/background.jpg'" +
+            		"); " +
+            	    "-fx-background-size: cover;"	
+            	);
+            
             // Set person overview into the center of root layout.
             rootLayout.setCenter(personOverview);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * startController controls the button event.
+     */
+    public class startController implements Initializable{
+
+	    	@FXML
+	    	private Button startButton;
+        
+        @Override
+        public void initialize(URL url,ResourceBundle rb) {
+        	
+        }
+        
+        @FXML protected void handleSubmitButtonAction(ActionEvent event) {
+            try {
+                // Load person overview.
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource("view/Mainview.fxml"));          
+                loader.setController(agent);
+                
+                AnchorPane personOverview = (AnchorPane) loader.load();
+                
+                // Set person overview into the center of root layout.
+                rootLayout.setCenter(personOverview);
+                
+                agent.start();
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        
+    	
+    }
+    
 
     /**
      * Returns the main stage.
