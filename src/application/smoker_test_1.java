@@ -1,3 +1,4 @@
+/*
 package application;
 
 import java.util.Random;
@@ -53,6 +54,10 @@ class Agent{
  		}
 		return true;
 	}
+	*/
+
+	/* Randomly put 2 different ingedients on the table */
+	/*
 	synchronized void placeIngredients(){
 		resetTable();
 		Random random = new Random();
@@ -97,6 +102,10 @@ class Agent{
 				System.out.println("==================");
 				System.out.println("Agent delivers: "+ in_table +" in the table");
 				System.out.println("Smoker : " +name+" has "+smoker_own+" and is ready to smoke");
+				*/
+
+				/* smoking */
+				/*
 				try{
 					Thread.sleep(1000);
 					
@@ -119,13 +128,16 @@ class Smoker extends Thread{
 		Agent a;
 		int my_Ingred;
 		String name;
-		
+		*/
+		/* constructor */
+		/*
 		public Smoker(Agent a,String name ,int my_Ingred){
 			this.a = a;
 			this.name = name;
 			this.my_Ingred = my_Ingred;			
 		}
 		
+
 		public void run(){
 			
 			while(true) {
@@ -145,4 +157,4 @@ class Smoker extends Thread{
 
 
 
-
+*/
