@@ -19,11 +19,13 @@ import javafx.scene.control.Button;
 public class MainApp extends Application {
 
 	private Stage primaryStage;
-    private BorderPane rootLayout;
+    public static BorderPane rootLayout;
     
     public Agent agent;
     public static Table table;
     public smkrTobacco smoker;
+    
+    public startController _start;
     
     @Override
     public void start(Stage primaryStage) {
@@ -33,6 +35,8 @@ public class MainApp extends Application {
         agent = new Agent(table, "TOBACCO");
 
         smoker = new smkrTobacco();
+        
+        _start = new startController();
         
 //        final Button startButton = new Button("Start");
 //        startButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -85,8 +89,8 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/Mainview.fxml"));          
-            loader.setController(agent);
+            loader.setLocation(MainApp.class.getResource("view/Startview.fxml"));          
+            loader.setController(_start);
             
             AnchorPane personOverview = (AnchorPane) loader.load();
 

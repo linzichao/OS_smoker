@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?language javascript?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="319.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="startButton" layoutX="179.0" layoutY="233.0" mnemonicParsing="false" text="Start" onAction="#handleSubmitButtonAction"/>
+         <fx:script>
+         	 
+			 var java = Packages.java;  
+			 var javafx = Packages.javafx;
+             
+             function submit() {  
+  				java.lang.System.out.println("Submit button pressed");  
+			 }
+			 
+             
+   		</fx:script>
+      <StackPane layoutX="224.0" layoutY="77.0" prefHeight="150.0" prefWidth="181.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="247.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../image/match.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
