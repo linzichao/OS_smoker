@@ -29,38 +29,44 @@ public class SmokersAgents{
 
 	public static void main(String[] args){
 
-		// For cmd line, use args.length != 3		
-		// For eclipse, use args.length != 1
-		if(args.length != 1) {
-			System.out.println("Usage: java SmokersAgents [Poisson distribution mean value]");
-			return;
-		}
+		try {
+			// For cmd line, use args.length != 3		
+			// For eclipse, use args.length != 1
+			if(args.length != 1) {
+				System.out.println("Usage: java SmokersAgents [Poisson distribution mean value]");
+				return;
+			}
 		
-		 // For cmd line, use args[2],		
-		 // For eclipse, use args[0], Run => Run Configurations => Arguments.
-		int meanWaitingTime = Integer.parseInt(args[0]);
-		System.out.println("Mean Waiting Time = " + meanWaitingTime);
-		Table table = new Table();
+			// For cmd line, use args[2],		
+			// For eclipse, use args[0], Run => Run Configurations => Arguments.
+			int meanWaitingTime = Integer.parseInt(args[0]);
+			System.out.println("Mean Waiting Time = " + meanWaitingTime);
+			Table table = new Table();
 
-		// Create smkrs.
-		Smoker tobaccoSmoker =  new Smoker(table,"TOBACCO",TOBACCO, meanWaitingTime);
-		Smoker paperSmoker = new Smoker(table,"PAPER",PAPER, meanWaitingTime); 
-		Smoker matchSmoker = new Smoker(table,"MATCH",MATCH, meanWaitingTime);
+			// Create smkrs.
+			Smoker tobaccoSmoker =  new Smoker(table,"TOBACCO",TOBACCO, meanWaitingTime);
+			Smoker paperSmoker = new Smoker(table,"PAPER",PAPER, meanWaitingTime); 
+			Smoker matchSmoker = new Smoker(table,"MATCH",MATCH, meanWaitingTime);
 
-		// Create agts.
-		Agent tobaccoAgent = new Agent(table, "TOBACCO");
-		Agent paperAgent = new Agent(table, "PAPER");
-		Agent matchAgent = new Agent(table, "MATCH");
+			// Create agts.
+			Agent tobaccoAgent = new Agent(table, "TOBACCO");
+			Agent paperAgent = new Agent(table, "PAPER");
+			Agent matchAgent = new Agent(table, "MATCH");
 
-		System.out.print("Table now has: ");
+			System.out.print("Table now has: ");
 
-		tobaccoAgent.start();
-		paperAgent.start();
-		matchAgent.start();
+			/* Main thread sleeps for 3 sec before smkrs and agts start. */
+			Thread.sleep(3000);
+			/*************************************************************/
+		
+			tobaccoAgent.start();
+			paperAgent.start();
+			matchAgent.start();
 
-		tobaccoSmoker.start();
-		paperSmoker.start();
-		matchSmoker.start();
+			tobaccoSmoker.start();
+			paperSmoker.start();
+			matchSmoker.start();
+		} catch (Exception e) {}
 	}	
 }
 
