@@ -24,31 +24,27 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
     public BorderPane rootLayout;
+        
+    public startController _start = new startController();
     
-    public static Table table = new Table();
-    public Agent agent = new Agent(MainApp.table, "TOBACCO");
-    public smkrTobacco smoker;
+    public Table table = new Table();
     
-    public startController _start;
+	// Create smkrs.
+	public Smoker tobaccoSmoker =  new Smoker(table,"TOBACCO",SmokersAgents.TOBACCO, 10);
+	public Smoker paperSmoker = new Smoker(table,"PAPER",SmokersAgents.PAPER, 10); 
+	public Smoker matchSmoker = new Smoker(table,"MATCH",SmokersAgents.MATCH, 10);
+
+	// Create agts.
+	public Agent tobaccoAgent = new Agent(table, "TOBACCO");
+	public Agent paperAgent = new Agent(table, "PAPER");
+	public Agent matchAgent = new Agent(table, "MATCH");
+    
     
     @Override
     public void start(Stage primaryStage) {
-    
-    	
-        smoker = new smkrTobacco();
+
         
-        _start = new startController();
-        
-//        final Button startButton = new Button("Start");
-//        startButton.setOnAction(new EventHandler<ActionEvent>() {
-//          @Override
-//          public void handle(ActionEvent event) {
-//        	  		smoker.start();
-//          }
-//        });
- 
-        
-    		this.primaryStage = primaryStage;
+    	    this.primaryStage = primaryStage;
         this.primaryStage.setTitle("OS_chainsmoker");
         
         this.primaryStage.setHeight(700);
@@ -58,9 +54,7 @@ public class MainApp extends Application {
         initRootLayout();
     
         startOverview();
-        
-        
-        		
+           		
         
     }
 
@@ -126,14 +120,24 @@ public class MainApp extends Application {
                 // Load person overview.
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(MainApp.class.getResource("view/Mainview.fxml"));          
-                loader.setController(agent);
+                loader.setController(table);
                 
                 AnchorPane personOverview = (AnchorPane) loader.load();
                 
                 // Set person overview into the center of root layout.
                 rootLayout.setCenter(personOverview);
                 
-                agent.start();
+                
+	        		System.out.print("Table now has: ");
+	
+	        		tobaccoAgent.start();
+	        		paperAgent.start();
+	        		matchAgent.start();
+	
+	        		tobaccoSmoker.start();
+	        		paperSmoker.start();
+	        		matchSmoker.start();
+                
                 
             } catch (IOException e) {
                 e.printStackTrace();
