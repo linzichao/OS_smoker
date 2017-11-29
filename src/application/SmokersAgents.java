@@ -6,12 +6,14 @@ import org.apache.commons.math3.distribution.PoissonDistribution;
 /// GUI Library
 import javafx.scene.image.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import javafx.util.Duration;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 
 public class SmokersAgents{
@@ -66,6 +68,12 @@ class Table implements Initializable{
 
 	@FXML
 	private ImageView table2;
+	
+	@FXML
+	private ImageView tobacco;
+	
+	@FXML
+	private Text txtSmoke;
 	  
 	@Override
 	public void initialize(URL url,ResourceBundle rb) {
@@ -85,31 +93,37 @@ class Table implements Initializable{
 				tableIngred[0] = true;
 				System.out.print("TOBACCO ");
 				move(SmokersAgents.TOBACCO, numIngredInTable);
-		        try {
+		        /// motion delay
+				try {
 		            Thread.sleep(5000);
 		         } catch (Exception e) {
 		            System.out.println(e);
 		         }
+				
 			}
 			else if(ingred.equals("PAPER") && tableIngred[1] == false) {
 				tableIngred[1] = true;
 				System.out.print("PAPER ");
 				move(SmokersAgents.PAPER,numIngredInTable);
-		        try {
+				/// motion delay
+				try {
 		            Thread.sleep(5000);
 		         } catch (Exception e) {
 		            System.out.println(e);
 		         }
+				
 			}
 			else if(ingred.equals("MATCH") && tableIngred[2] == false) {
 				tableIngred[2] = true;
 				System.out.print("MATCH ");
 				move(SmokersAgents.MATCH,numIngredInTable);
-		        try {
+				/// motion delay
+				try {
 		            Thread.sleep(5000);
 		         } catch (Exception e) {
 		            System.out.println(e);
 		         }
+				
 			}
 			numIngredInTable ++;
 		}
@@ -158,16 +172,20 @@ class Table implements Initializable{
     public void move(int i,int time) {
     	
 		fade1.setDuration(Duration.seconds(3));
-		fade1.setToY(100);
-		fade1.setToX(100);
-		fade1.setAutoReverse(true);
-		fade1.setCycleCount(2);
+		fade1.setFromX(502);
+		fade1.setFromY(-216);
+		fade1.setToY(0);
+		fade1.setToX(0);
+//		fade1.setAutoReverse(true);
+//		fade1.setCycleCount(2);
 		
 		fade2.setDuration(Duration.seconds(3));
-		fade2.setToY(100);
-		fade2.setToX(100);
-		fade2.setAutoReverse(true);
-		fade2.setCycleCount(2);
+		fade2.setFromX(361);
+		fade2.setFromY(177);
+		fade2.setToY(0);
+		fade2.setToX(0);
+//		fade2.setAutoReverse(true);
+//		fade2.setCycleCount(2);
     		
 		if(time==0) {
 		
@@ -216,55 +234,23 @@ class Table implements Initializable{
     	
     }
 	
-//    public void moveMatch(int i) {
-//		
-//    		if(i==0) {
-//			table1.setImage(new Image("file:src/image/match.png"));
-//			fade.setNode(table1);
-//    		}else {
-//    			table2.setImage(new Image("file:src/image/match.png"));
-//    			fade.setNode(table2);
-//    		}
-//		
-//    		fade.setDuration(Duration.seconds(3));
-//    		fade.setToY(100);
-//    		fade.setToX(100);
-//    		fade.setAutoReverse(true);
-//    		fade.setCycleCount(2);
-//    		fade.play();
-//    		
-//		//table.setImage(new Image("file:src/image/white.png"));
-//	
-//    }
-//    
-//    public void movePaper(int i) {
-//		
-//    		if(i==0) {
-//			table1.setImage(new Image("file:src/image/paper.png"));
-//			fade.setNode(table1);
-//    		}else {
-//    			table2.setImage(new Image("file:src/image/paper.png"));
-//    			fade.setNode(table2);
-//    		}
-//			
-//    		fade.setDuration(Duration.seconds(3));
-//    		fade.setToY(100);
-//    		fade.setToX(100);
-//    		fade.setAutoReverse(true);
-//    		fade.setCycleCount(2);
-//    		fade.play();
-//
-//		//table.setImage(new Image("file:src/image/white.png"));
-//	
-//    }
-    
     public void moveAll() {
     		
-    		//table1.setImage(new Image("file:src/image/white.png"));
-    		//table2.setImage(new Image("file:src/image/white.png"));
+    		table1.setImage(new Image("file:src/image/white.png"));
+    		table2.setImage(new Image("file:src/image/white.png"));
+    		txtSmoke.setText("Smoking!!!");
     		
     }
-
+    
+//    public final double impl_getPivotX() {
+//        final Bounds bounds = getLayoutBounds();
+//        return bounds.getMinX() + bounds.getWidth()/2;
+//    }
+//
+//    public final double impl_getPivotY() {
+//        final Bounds bounds = getLayoutBounds();
+//        return bounds.getMinY() + bounds.getHeight()/2;
+//    }
    
 }
 
@@ -341,18 +327,6 @@ class Agent extends Thread {
 	
 	private Table table;
 	private String myIngred;
-
-//	/* GUI items */
-//    @FXML
-//    private ImageView tobacco;
-//    
-//    @FXML
-//    private ImageView match;
-//    
-//    @Override
-//    public void initialize(URL url,ResourceBundle rb) {
-//    	
-//    }
 	
 	/* constructor */
 	public Agent(Table table, String name) {
@@ -361,9 +335,7 @@ class Agent extends Thread {
 	}
 
 	public void run() {
-		//tobacco.setImage(new Image("file:src/image/match.png"));
 		while(true) {    
-			//this.moveMatch(); // GUI image motion
 			putIngred();
 		}
 	}
@@ -375,28 +347,6 @@ class Agent extends Thread {
 		table.getIngred(myIngred);
 	}
 	
-//	/* GUI Image motion */
-//    public void moveTobacco() {
-//    	
-//		TranslateTransition fade = new TranslateTransition();
-//		fade.setDuration(Duration.seconds(10));
-//		fade.setNode(tobacco);	
-//		fade.setToY(-100);
-//		fade.setToX(100);	
-//		fade.play();
-//    	
-//    }
-//	
-//    public void moveMatch() {
-//    	
-//		TranslateTransition fade = new TranslateTransition();
-//		fade.setDuration(Duration.seconds(10));
-//		fade.setNode(match);	
-//		fade.setToY(-100);
-//		fade.setToX(100);	
-//		fade.play();
-//    	
-//    }
     
 }
    

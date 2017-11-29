@@ -1,55 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="630.0" prefWidth="839.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <StackPane layoutX="44.0" layoutY="14.0" prefHeight="207.0" prefWidth="168.0">
          <children>
-            <ImageView fx:id="tobacco" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="smoker_tobacco" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/smoker-tobacco.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="28.0" layoutY="241.0" prefHeight="207.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="smoker_paper" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/smoker-paper.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="28.0" layoutY="464.0" prefHeight="207.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="smoker_match" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/smoker-match.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="644.0" layoutY="271.0" prefHeight="142.0" prefWidth="112.0">
+         <children>
+            <ImageView fx:id="table2" fitHeight="115.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/white.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="504.0" layoutY="271.0" prefHeight="142.0" prefWidth="112.0">
+         <children>
+            <ImageView fx:id="table1" fitHeight="115.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/white.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="531.0" layoutY="430.0" prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="table" fitHeight="150.0" fitWidth="239.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/table.png" />
+               </image></ImageView>
+         </children>
+      </StackPane>
+      <AnchorPane layoutX="160.0" layoutY="14.0" prefHeight="41.0" prefWidth="45.0">
+         <children>
+            <Text layoutX="2.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Smoker_Tobacco" wrappingWidth="200.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="160.0" layoutY="232.0" prefHeight="41.0" prefWidth="45.0">
+         <children>
+            <Text layoutX="2.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Smoker_Paper" wrappingWidth="200.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="160.0" layoutY="464.0" prefHeight="41.0" prefWidth="45.0">
+         <children>
+            <Text layoutX="2.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Smoker_Match" wrappingWidth="200.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <StackPane layoutX="1006.0" layoutY="55.0" prefHeight="142.0" prefWidth="112.0">
+         <children>
+            <ImageView fx:id="tobacco" fitHeight="99.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../image/tobacco.png" />
                </image>
             </ImageView>
          </children>
       </StackPane>
-      <StackPane layoutX="28.0" layoutY="212.0" prefHeight="207.0" prefWidth="200.0">
+      <StackPane layoutX="1006.0" layoutY="241.0" prefHeight="142.0" prefWidth="112.0">
          <children>
-            <ImageView fx:id="paper" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="paper" fitHeight="116.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../image/paper.png" />
                </image>
             </ImageView>
          </children>
       </StackPane>
-      <StackPane layoutX="28.0" layoutY="409.0" prefHeight="207.0" prefWidth="200.0">
+      <StackPane layoutX="1005.0" layoutY="448.0" prefHeight="142.0" prefWidth="112.0">
          <children>
-            <ImageView fx:id="match" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="match" fitHeight="115.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../image/match.png" />
                </image>
             </ImageView>
          </children>
       </StackPane>
-      <StackPane layoutX="508.0" layoutY="240.0" prefHeight="150.0" prefWidth="200.0">
+      <Line endX="100.0" layoutX="472.0" layoutY="342.0" rotate="90.0" scaleX="0.8" startX="-100.0" strokeWidth="3.0" />
+      <Line endX="100.0" layoutX="624.0" layoutY="422.0" scaleX="1.5" startX="-100.0" strokeWidth="3.0" />
+      <Line endX="100.0" layoutX="777.0" layoutY="342.0" rotate="90.0" scaleX="0.8" startX="-100.0" strokeWidth="3.0" />
+      <Line endX="100.0" layoutX="624.1" layoutY="260.0" scaleX="1.52" startX="-100.0" strokeWidth="3.0" />
+      <AnchorPane layoutX="1028.0" layoutY="35.0" prefHeight="41.0" prefWidth="108.0">
          <children>
-            <ImageView fx:id="table2" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../image/white.png" />
-               </image></ImageView>
+            <Text layoutX="1.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tobacco" wrappingWidth="124.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
          </children>
-      </StackPane>
-      <StackPane layoutX="301.0" layoutY="240.0" prefHeight="150.0" prefWidth="200.0">
+      </AnchorPane>
+      <AnchorPane layoutX="1028.0" layoutY="221.0" prefHeight="41.0" prefWidth="108.0">
          <children>
-            <ImageView fx:id="table1" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../image/white.png" />
-               </image>
-            </ImageView>
+            <Text layoutX="1.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paper" wrappingWidth="124.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
          </children>
-      </StackPane>
+      </AnchorPane>
+      <AnchorPane layoutX="1028.0" layoutY="425.0" prefHeight="41.0" prefWidth="108.0">
+         <children>
+            <Text layoutX="1.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Match" wrappingWidth="124.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="472.0" layoutY="293.0" prefHeight="99.0" prefWidth="305.0">
+         <children>
+            <Text fx:id="txtSmoke" layoutX="53.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="221.0">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

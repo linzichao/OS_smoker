@@ -43,12 +43,13 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+    	
         
     	    this.primaryStage = primaryStage;
         this.primaryStage.setTitle("OS_chainsmoker");
         
         this.primaryStage.setHeight(700);
-        this.primaryStage.setWidth(1000);
+        this.primaryStage.setWidth(1200);
         
         
         initRootLayout();

@@ -10,8 +10,9 @@
 
 -----
 
-### 2. Application FrameWork
+### 2. Application FrameWork & Project Management
 JavaFx 2.0
+Maven
 </br>
 
 -----
