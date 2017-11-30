@@ -53,11 +53,11 @@ public class SmokersAgents{
 			Agent paperAgent = new Agent(table, "PAPER");
 			Agent matchAgent = new Agent(table, "MATCH");
 
-			System.out.print("Table now has: ");
-
 			/* Main thread sleeps for 3 sec before smkrs and agts start. */
 			Thread.sleep(3000);
 			/*************************************************************/
+			
+			System.out.print("Table now has: ");
 		
 			tobaccoAgent.start();
 			paperAgent.start();
@@ -91,6 +91,13 @@ class Table {
 				System.out.print("MATCH ");
 			}
 			numIngredInTable ++;
+			
+			/* Sleep 3 sec after an agt puts ingred in table */
+			try {
+				Thread.sleep(3000);
+			}
+			catch (Exception e) {}
+			/*************************************************/
 		}
 		try {
 			
@@ -117,13 +124,16 @@ class Table {
 	}
 
 	synchronized void consumeIngred() {
-		// set table to empty.
-		tableIngred[0] = false;
-		tableIngred[1] = false;
-		tableIngred[2] = false;
-		numIngredInTable = 0;
-		System.out.println("\n==============================");
-		System.out.print("Table now has: ");
+		try {
+			// set table to empty.
+			tableIngred[0] = false;
+			tableIngred[1] = false;
+			tableIngred[2] = false;
+			numIngredInTable = 0;
+	
+			System.out.println("\n==============================");
+			System.out.print("Table now has: ");		
+		} catch (Exception e) {}
 	}
 
 	synchronized void notifyAllPeople() {
@@ -172,6 +182,11 @@ class Smoker extends Thread{
 					break;
 				}
 			}
+			
+			System.out.print("\n" + name + "_owner is making cigarette, wait for 1 sec");
+			/* Making cigarette for 1 sec */
+			Thread.sleep(1000);
+			/******************************/
 			
 			System.out.print("\n" + name + "_owner is smoking, wait for " + waitingTime + " sec");
 			sleepLoadingBar(waitingTime);
