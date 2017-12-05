@@ -30,9 +30,9 @@ public class MainApp extends Application {
     public Table table = new Table();
     
 	// Create smkrs.
-	public Smoker tobaccoSmoker =  new Smoker(table,"TOBACCO",SmokersAgents.TOBACCO, 10);
-	public Smoker paperSmoker = new Smoker(table,"PAPER",SmokersAgents.PAPER, 10); 
-	public Smoker matchSmoker = new Smoker(table,"MATCH",SmokersAgents.MATCH, 10);
+	public Smoker tobaccoSmoker =  new Smoker(table,"TOBACCO",SmokersAgents.TOBACCO);
+	public Smoker paperSmoker = new Smoker(table,"PAPER",SmokersAgents.PAPER); 
+	public Smoker matchSmoker = new Smoker(table,"MATCH",SmokersAgents.MATCH);
 
 	// Create agts.
 	public Agent tobaccoAgent = new Agent(table, "TOBACCO");

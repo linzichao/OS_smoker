@@ -1,7 +1,7 @@
 package application;
 
 //import java.util.Random;
-import org.apache.commons.math3.distribution.PoissonDistribution; 
+import org.apache.commons.math3.distribution.ExponentialDistribution; 
 
 /// GUI Library
 import javafx.scene.image.*;
@@ -23,45 +23,6 @@ public class SmokersAgents{
 	public static final int MATCH = 2; 
 
 	public static void main(String[] args){
-
-		try {
-			// For cmd line, use args.length != 3		
-			// For eclipse, use args.length != 1
-			if(args.length != 1) {
-				System.out.println("Usage: java SmokersAgents [Poisson distribution mean value]");
-				return;
-			}
-		
-			// For cmd line, use args[2],		
-			// For eclipse, use args[0], Run => Run Configurations => Arguments.
-			int meanWaitingTime = Integer.parseInt(args[0]);
-			System.out.println("Mean Waiting Time = " + meanWaitingTime);
-			Table table = new Table();
-
-			// Create smkrs.
-			Smoker tobaccoSmoker =  new Smoker(table,"TOBACCO",TOBACCO, meanWaitingTime);
-			Smoker paperSmoker = new Smoker(table,"PAPER",PAPER, meanWaitingTime); 
-			Smoker matchSmoker = new Smoker(table,"MATCH",MATCH, meanWaitingTime);
-
-			// Create agts.
-			Agent tobaccoAgent = new Agent(table, "TOBACCO");
-			Agent paperAgent = new Agent(table, "PAPER");
-			Agent matchAgent = new Agent(table, "MATCH");
-
-			/* Main thread sleeps for 3 sec before smkrs and agts start. */
-			Thread.sleep(3000);
-			/*************************************************************/
-			
-			System.out.print("Table now has: ");
-		
-			tobaccoAgent.start();
-			paperAgent.start();
-			matchAgent.start();
-
-			tobaccoSmoker.start();
-			paperSmoker.start();
-			matchSmoker.start();
-		} catch (Exception e) {}
 	}	
 }
 
@@ -91,62 +52,52 @@ class Table implements Initializable{
 	
 	private boolean[] tableIngred = new boolean[3]; // [TOBACCO, PAPER, MATCH].	
 	private int numIngredInTable;
+	
+	ExponentialDistribution ed = new ExponentialDistribution(8);
+	final int GUI_TRANSITION_TIME = 2000; // 2 sec
 
 	synchronized void getIngred(String ingred) {
 		if(numIngredInTable < 2) {
+			int waitingTime = getGapTime();
 			/* agent puts its ingredient on the table. */
 			if(ingred.equals("TOBACCO") && tableIngred[0] == false) {
 				tableIngred[0] = true;
-				System.out.print("TOBACCO ");
+				System.out.print("TOBACCO, gap time = " + waitingTime/1000 + " sec. ");
 				move(SmokersAgents.TOBACCO, numIngredInTable);
-		        /// motion delay
-				try {
-		            Thread.sleep(5000);
-		         } catch (Exception e) {
-		            System.out.println(e);
-		         }
-				
 			}
 			else if(ingred.equals("PAPER") && tableIngred[1] == false) {
 				tableIngred[1] = true;
-				System.out.print("PAPER ");
+				System.out.print("PAPER, gap time = " + waitingTime/1000 + " sec. ");
 				move(SmokersAgents.PAPER,numIngredInTable);
-				/// motion delay
-				try {
-		            Thread.sleep(5000);
-		         } catch (Exception e) {
-		            System.out.println(e);
-		         }
-				
 			}
 			else if(ingred.equals("MATCH") && tableIngred[2] == false) {
 				tableIngred[2] = true;
-				System.out.print("MATCH ");
+				System.out.print("MATCH, gap time = " + waitingTime/1000 + " sec. ");
 				move(SmokersAgents.MATCH,numIngredInTable);
-				/// motion delay
-				try {
-		            Thread.sleep(5000);
-		         } catch (Exception e) {
-		            System.out.println(e);
-		         }
-				
 			}
 			numIngredInTable ++;
 			
-			/* Sleep 3 sec after an agt puts ingred in table */
+			/* Sleep for a time interval of exponential distribition after an agt puts ingred in table */
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(waitingTime);
 			}
 			catch (Exception e) {}
-			/*************************************************/
+			/*******************************************************************************************/
 		}
 		try {
-			
 			/* agt blocks here. */
 			wait();
 			/*******************/
-			
 		} catch(Exception e) {}
+	}
+	
+	int getGapTime() {
+		int waitingTime = 0;
+		// Let waitingTime in the range 3 <= time <= 13
+		while(waitingTime < 3 || waitingTime > 13) {
+			waitingTime = (int) ed.sample();
+		}
+		return waitingTime * 1000 + GUI_TRANSITION_TIME;
 	}
 
 	synchronized boolean giveIngred(String smkrName) {
@@ -274,16 +225,16 @@ class Smoker extends Thread{
 	Table table;
 	int myIngred;
 	String name;
-	int meanWaitingTime;
-	PoissonDistribution pd;
+	int waitingTime;
+	ExponentialDistribution ed;
+	final int GUI_TRANSITION_TIME = 2000; // 2 second
 
 	/* constructor */
-	public Smoker(Table table, String name ,int myIngred, int meanWaitingTime){
+	public Smoker(Table table, String name ,int myIngred){
 		this.table = table;
 		this.name = name;
 		this.myIngred = myIngred;
-		this.meanWaitingTime = meanWaitingTime;
-		pd = new PoissonDistribution(meanWaitingTime);
+		ed = new ExponentialDistribution(8);
 	}
 
 	public void run(){
@@ -303,29 +254,30 @@ class Smoker extends Thread{
 
 	synchronized void smoke() {
 		try {
-			int waitingTime;
-			// Let waitingTime > 0.
-			while(true) {
-				waitingTime = pd.sample();
-				if(waitingTime != 0) {
-					break;
-				}
-			}
-			
 			System.out.print("\n" + name + "_owner is making cigarette, wait for 1 sec");
 			/* Making cigarette for 1 sec */
 			Thread.sleep(1000);
 			/******************************/
 			
-			System.out.print("\n" + name + "_owner is smoking, wait for " + waitingTime + " sec");
+			waitingTime = getGapTime();
+			System.out.print("\n" + name + "_owner is smoking, wait for " + waitingTime/1000 + " sec");
 			sleepLoadingBar(waitingTime);
 			table.consumeIngred();
 		} catch(Exception e) {}
 	}
 	
+	int getGapTime() {
+		int waitingTime = 0;
+		// Let waitingTime in the range 3 <= time <= 13
+		while(waitingTime < 3 || waitingTime > 13) {
+			waitingTime = (int) ed.sample();
+		}
+		return waitingTime * 1000 + GUI_TRANSITION_TIME;
+	}
+	
 	synchronized void sleepLoadingBar(int time) {
 		try {
-			int waitingTimePerRound = time * 1000 / 100;
+			int waitingTimePerRound = time / 100;
 			String strLeft = "|";
 			String strRight = "                                                                                                    |";
 			
