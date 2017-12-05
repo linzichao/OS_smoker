@@ -24,38 +24,44 @@ public class SmokersAgents{
 
 	public static void main(String[] args){
 
-		// For cmd line, use args.length != 3		
-		// For eclipse, use args.length != 1
-		if(args.length != 1) {
-			System.out.println("Usage: java SmokersAgents [Poisson distribution mean value]");
-			return;
-		}
+		try {
+			// For cmd line, use args.length != 3		
+			// For eclipse, use args.length != 1
+			if(args.length != 1) {
+				System.out.println("Usage: java SmokersAgents [Poisson distribution mean value]");
+				return;
+			}
 		
-		 // For cmd line, use args[2],		
-		 // For eclipse, use args[0], Run => Run Configurations => Arguments.
-		int meanWaitingTime = Integer.parseInt(args[0]);
-		System.out.println("Mean Waiting Time = " + meanWaitingTime);
-		Table table = new Table();
+			// For cmd line, use args[2],		
+			// For eclipse, use args[0], Run => Run Configurations => Arguments.
+			int meanWaitingTime = Integer.parseInt(args[0]);
+			System.out.println("Mean Waiting Time = " + meanWaitingTime);
+			Table table = new Table();
 
-		// Create smkrs.
-		Smoker tobaccoSmoker =  new Smoker(table,"TOBACCO",TOBACCO, meanWaitingTime);
-		Smoker paperSmoker = new Smoker(table,"PAPER",PAPER, meanWaitingTime); 
-		Smoker matchSmoker = new Smoker(table,"MATCH",MATCH, meanWaitingTime);
+			// Create smkrs.
+			Smoker tobaccoSmoker =  new Smoker(table,"TOBACCO",TOBACCO, meanWaitingTime);
+			Smoker paperSmoker = new Smoker(table,"PAPER",PAPER, meanWaitingTime); 
+			Smoker matchSmoker = new Smoker(table,"MATCH",MATCH, meanWaitingTime);
 
-		// Create agts.
-		Agent tobaccoAgent = new Agent(table, "TOBACCO");
-		Agent paperAgent = new Agent(table, "PAPER");
-		Agent matchAgent = new Agent(table, "MATCH");
+			// Create agts.
+			Agent tobaccoAgent = new Agent(table, "TOBACCO");
+			Agent paperAgent = new Agent(table, "PAPER");
+			Agent matchAgent = new Agent(table, "MATCH");
 
-		System.out.print("Table now has: ");
+			/* Main thread sleeps for 3 sec before smkrs and agts start. */
+			Thread.sleep(3000);
+			/*************************************************************/
+			
+			System.out.print("Table now has: ");
+		
+			tobaccoAgent.start();
+			paperAgent.start();
+			matchAgent.start();
 
-		tobaccoAgent.start();
-		paperAgent.start();
-		matchAgent.start();
-
-		tobaccoSmoker.start();
-		paperSmoker.start();
-		matchSmoker.start();
+			tobaccoSmoker.start();
+			paperSmoker.start();
+			matchSmoker.start();
+		} catch (Exception e) {}
 	}	
 }
 
@@ -126,6 +132,13 @@ class Table implements Initializable{
 				
 			}
 			numIngredInTable ++;
+			
+			/* Sleep 3 sec after an agt puts ingred in table */
+			try {
+				Thread.sleep(3000);
+			}
+			catch (Exception e) {}
+			/*************************************************/
 		}
 		try {
 			
@@ -155,13 +168,16 @@ class Table implements Initializable{
 	}
 
 	synchronized void consumeIngred() {
-		// set table to empty.
-		tableIngred[0] = false;
-		tableIngred[1] = false;
-		tableIngred[2] = false;
-		numIngredInTable = 0;
-		System.out.println("\n==============================");
-		System.out.print("Table now has: ");
+		try {
+			// set table to empty.
+			tableIngred[0] = false;
+			tableIngred[1] = false;
+			tableIngred[2] = false;
+			numIngredInTable = 0;
+	
+			System.out.println("\n==============================");
+			System.out.print("Table now has: ");		
+		} catch (Exception e) {}
 	}
 
 	synchronized void notifyAllPeople() {
@@ -295,6 +311,11 @@ class Smoker extends Thread{
 					break;
 				}
 			}
+			
+			System.out.print("\n" + name + "_owner is making cigarette, wait for 1 sec");
+			/* Making cigarette for 1 sec */
+			Thread.sleep(1000);
+			/******************************/
 			
 			System.out.print("\n" + name + "_owner is smoking, wait for " + waitingTime + " sec");
 			sleepLoadingBar(waitingTime);
