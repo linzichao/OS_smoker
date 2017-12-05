@@ -99,43 +99,22 @@ class Table implements Initializable{
 				tableIngred[0] = true;
 				System.out.print("TOBACCO ");
 				move(SmokersAgents.TOBACCO, numIngredInTable);
-		        /// motion delay
-				try {
-		            Thread.sleep(5000);
-		         } catch (Exception e) {
-		            System.out.println(e);
-		         }
-				
 			}
 			else if(ingred.equals("PAPER") && tableIngred[1] == false) {
 				tableIngred[1] = true;
 				System.out.print("PAPER ");
-				move(SmokersAgents.PAPER,numIngredInTable);
-				/// motion delay
-				try {
-		            Thread.sleep(5000);
-		         } catch (Exception e) {
-		            System.out.println(e);
-		         }
-				
+				move(SmokersAgents.PAPER,numIngredInTable);		
 			}
 			else if(ingred.equals("MATCH") && tableIngred[2] == false) {
 				tableIngred[2] = true;
 				System.out.print("MATCH ");
 				move(SmokersAgents.MATCH,numIngredInTable);
-				/// motion delay
-				try {
-		            Thread.sleep(5000);
-		         } catch (Exception e) {
-		            System.out.println(e);
-		         }
-				
 			}
 			numIngredInTable ++;
 			
 			/* Sleep 3 sec after an agt puts ingred in table */
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(4000);
 			}
 			catch (Exception e) {}
 			/*************************************************/
@@ -187,7 +166,7 @@ class Table implements Initializable{
 	/* GUI Image motion */
     public void move(int i,int time) {
     	
-		fade1.setDuration(Duration.seconds(3));
+		fade1.setDuration(Duration.seconds(2));
 		fade1.setFromX(502);
 		fade1.setFromY(-216);
 		fade1.setToY(0);
@@ -195,7 +174,7 @@ class Table implements Initializable{
 //		fade1.setAutoReverse(true);
 //		fade1.setCycleCount(2);
 		
-		fade2.setDuration(Duration.seconds(3));
+		fade2.setDuration(Duration.seconds(2));
 		fade2.setFromX(361);
 		fade2.setFromY(177);
 		fade2.setToY(0);
@@ -258,15 +237,6 @@ class Table implements Initializable{
     		
     }
     
-//    public final double impl_getPivotX() {
-//        final Bounds bounds = getLayoutBounds();
-//        return bounds.getMinX() + bounds.getWidth()/2;
-//    }
-//
-//    public final double impl_getPivotY() {
-//        final Bounds bounds = getLayoutBounds();
-//        return bounds.getMinY() + bounds.getHeight()/2;
-//    }
    
 }
 

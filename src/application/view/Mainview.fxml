@@ -36,7 +36,7 @@
             </ImageView>
          </children>
       </StackPane>
-      <StackPane layoutX="644.0" layoutY="271.0" prefHeight="142.0" prefWidth="112.0">
+      <StackPane layoutX="642.0" layoutY="271.0" prefHeight="142.0" prefWidth="112.0">
          <children>
             <ImageView fx:id="table2" fitHeight="115.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -45,7 +45,7 @@
             </ImageView>
          </children>
       </StackPane>
-      <StackPane layoutX="504.0" layoutY="271.0" prefHeight="142.0" prefWidth="112.0">
+      <StackPane layoutX="500.0" layoutY="271.0" prefHeight="142.0" prefWidth="112.0">
          <children>
             <ImageView fx:id="table1" fitHeight="115.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -54,7 +54,7 @@
             </ImageView>
          </children>
       </StackPane>
-      <StackPane layoutX="531.0" layoutY="430.0" prefHeight="150.0" prefWidth="200.0">
+      <StackPane layoutX="524.0" layoutY="430.0" prefHeight="150.0" prefWidth="200.0">
          <children>
             <ImageView fx:id="table" fitHeight="150.0" fitWidth="239.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -98,7 +98,7 @@
             </ImageView>
          </children>
       </StackPane>
-      <StackPane layoutX="1006.0" layoutY="241.0" prefHeight="142.0" prefWidth="112.0">
+      <StackPane layoutX="1006.0" layoutY="279.0" prefHeight="142.0" prefWidth="112.0">
          <children>
             <ImageView fx:id="paper" fitHeight="116.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -107,7 +107,7 @@
             </ImageView>
          </children>
       </StackPane>
-      <StackPane layoutX="1005.0" layoutY="448.0" prefHeight="142.0" prefWidth="112.0">
+      <StackPane layoutX="1005.0" layoutY="497.0" prefHeight="142.0" prefWidth="112.0">
          <children>
             <ImageView fx:id="match" fitHeight="115.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -120,7 +120,7 @@
       <Line endX="100.0" layoutX="624.0" layoutY="422.0" scaleX="1.5" startX="-100.0" strokeWidth="3.0" />
       <Line endX="100.0" layoutX="777.0" layoutY="342.0" rotate="90.0" scaleX="0.8" startX="-100.0" strokeWidth="3.0" />
       <Line endX="100.0" layoutX="624.1" layoutY="260.0" scaleX="1.52" startX="-100.0" strokeWidth="3.0" />
-      <AnchorPane layoutX="1028.0" layoutY="35.0" prefHeight="41.0" prefWidth="108.0">
+      <AnchorPane layoutX="1028.0" layoutY="14.0" prefHeight="41.0" prefWidth="108.0">
          <children>
             <Text layoutX="1.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tobacco" wrappingWidth="124.0">
                <font>
@@ -129,7 +129,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="1028.0" layoutY="221.0" prefHeight="41.0" prefWidth="108.0">
+      <AnchorPane layoutX="1028.0" layoutY="232.0" prefHeight="41.0" prefWidth="108.0">
          <children>
             <Text layoutX="1.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paper" wrappingWidth="124.0">
                <font>
@@ -138,7 +138,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="1028.0" layoutY="425.0" prefHeight="41.0" prefWidth="108.0">
+      <AnchorPane layoutX="1028.0" layoutY="464.0" prefHeight="41.0" prefWidth="108.0">
          <children>
             <Text layoutX="1.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Match" wrappingWidth="124.0">
                <font>
@@ -156,5 +156,32 @@
             </Text>
          </children>
       </AnchorPane>
+      <StackPane layoutX="212.0" layoutY="55.0" prefHeight="142.0" prefWidth="112.0">
+         <children>
+            <ImageView fx:id="smkTobacco" fitHeight="115.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/white.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="212.0" layoutY="279.0" prefHeight="142.0" prefWidth="112.0">
+         <children>
+            <ImageView fx:id="smkPaper" fitHeight="115.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/white.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="212.0" layoutY="509.0" prefHeight="142.0" prefWidth="112.0">
+         <children>
+            <ImageView fx:id="smkMatch" fitHeight="115.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/white.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
