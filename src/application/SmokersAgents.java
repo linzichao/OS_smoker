@@ -35,20 +35,23 @@ class Table implements Initializable{
 
 	@FXML
 	private ImageView table2;
-	
-	@FXML
-	private ImageView tobacco;
-	
+		
 	@FXML
 	private Text txtSmoke;
+	
+	@FXML 
+	private ImageView smoking;
 	  
 	@Override
 	public void initialize(URL url,ResourceBundle rb) {
 	  	
 	}
 	
-	public TranslateTransition fade1 = new TranslateTransition();
-	public TranslateTransition fade2 = new TranslateTransition();
+	public TranslateTransition fade1 = new TranslateTransition(); // For thr first ingredient on table 
+	public TranslateTransition fade2 = new TranslateTransition(); // For the second ingredient on table
+	public TranslateTransition fade3 = new TranslateTransition(); // For the smoking image 
+	
+	/* GUI item end */
 	
 	private boolean[] tableIngred = new boolean[3]; // [TOBACCO, PAPER, MATCH].	
 	private int numIngredInTable;
@@ -103,15 +106,15 @@ class Table implements Initializable{
 	synchronized boolean giveIngred(String smkrName) {
 		if(numIngredInTable == 2) {
 			if(smkrName.equals("TOBACCO") && tableIngred[0] == false) { // if smkrTOBACCO comes in , and no tobacco on the table.
-				moveAll();
+				//moveAll();
 				return true;
 			}
 			else if(smkrName.equals("PAPER") && tableIngred[1] == false) { // if smkrPAPER comes in , and no paper on the table.
-				moveAll();
+				//moveAll();
 				return true;
 			}
 			else if(smkrName.equals("MATCH") && tableIngred[2] == false) { // if smkrMATCH comes in , and no match on the table.
-				moveAll();
+				//moveAll();
 				return true;
 			}
 		}
@@ -125,7 +128,10 @@ class Table implements Initializable{
 			tableIngred[1] = false;
 			tableIngred[2] = false;
 			numIngredInTable = 0;
-	
+			
+			/* GUI remove */
+			remove();
+			
 			System.out.println("\n==============================");
 			System.out.print("Table now has: ");		
 		} catch (Exception e) {}
@@ -139,20 +145,16 @@ class Table implements Initializable{
     public void move(int i,int time) {
     	
 		fade1.setDuration(Duration.seconds(2));
-		fade1.setFromX(502);
-		fade1.setFromY(-216);
+		fade1.setFromX(506);
+		fade1.setFromY(getLayoutY(i)-271);
 		fade1.setToY(0);
 		fade1.setToX(0);
-//		fade1.setAutoReverse(true);
-//		fade1.setCycleCount(2);
 		
 		fade2.setDuration(Duration.seconds(2));
-		fade2.setFromX(361);
-		fade2.setFromY(177);
+		fade2.setFromX(364);
+		fade2.setFromY(getLayoutY(i)-364);
 		fade2.setToY(0);
 		fade2.setToX(0);
-//		fade2.setAutoReverse(true);
-//		fade2.setCycleCount(2);
     		
 		if(time==0) {
 		
@@ -201,12 +203,63 @@ class Table implements Initializable{
     	
     }
 	
-    public void moveAll() {
+    /* GUI table */
+    public void nowSmoke(String name) {
+    	
+    		int y = 0;
     		
+    		switch (name) {
+    			case "TOBACCO":
+    				y = 55;
+    				break;
+    			case "PAPER":
+    				y = 279;
+    				break;
+    			case "MATCH":
+    				y = 509;
+    				break;
+    		}
+		fade3.setDuration(Duration.seconds(2));
+		fade3.setFromX(0);
+		fade3.setFromY(0);
+		fade3.setToX(-355);
+		fade3.setToY(y-271);
+		smoking.setImage(new Image("file:src/image/smoking.png"));
+		fade3.setNode(smoking);
+		fade3.play();
+		
     		table1.setImage(new Image("file:src/image/white.png"));
     		table2.setImage(new Image("file:src/image/white.png"));
-    		txtSmoke.setText("Smoking!!!");
     		
+		txtSmoke.setText("Smoking!!!");
+    		
+    }
+    
+    /* GUI finish one time */
+    public void remove() {
+    		smoking.setImage(new Image("file:src/image/white.png"));
+    		txtSmoke.setText("");
+    }
+    
+    /* GUI position */
+    public int getLayoutY(int i) {
+    		
+    		int y=0;
+    		
+    		switch(i) {
+    			
+    			case 0:
+    				y = 55;
+    				break;
+    			case 1:
+    				y = 279;
+    				break;
+    			case 2:
+    				y = 497;
+    				break;
+    		
+    		}
+    		return y;
     }
     
    
@@ -246,10 +299,11 @@ class Smoker extends Thread{
 	synchronized void smoke() {
 		try {
 			System.out.print("\n" + name + "_owner is making cigarette, wait for 1 sec");
+			table.nowSmoke(name); //GUI:: remove ingredient and smoke
 			/* Making cigarette for 1 sec */
 			Thread.sleep(1000);
 			/******************************/
-			
+		
 			waitingTime = getGapTime();
 			System.out.print("\n" + name + "_owner is smoking, wait for " + waitingTime/1000 + " sec");
 			sleepLoadingBar(waitingTime);
