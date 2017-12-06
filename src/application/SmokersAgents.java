@@ -124,10 +124,7 @@ class Table implements Initializable{
 			tableIngred[0] = false;
 			tableIngred[1] = false;
 			tableIngred[2] = false;
-			numIngredInTable = 0;
-	
-			System.out.println("\n==============================");
-			System.out.print("Table now has: ");		
+			numIngredInTable = 0;	
 		} catch (Exception e) {}
 	}
 
@@ -216,9 +213,9 @@ class Smoker extends Thread{
 	Table table;
 	int myIngred;
 	String name;
-	int waitingTime;
 	ExponentialDistribution ed;
 	final int GUI_TRANSITION_TIME = 2000; // 2 second
+	final int SMOKING_TIME = 5000; // 5 second 
 
 	/* constructor */
 	public Smoker(Table table, String name ,int myIngred){
@@ -245,15 +242,23 @@ class Smoker extends Thread{
 
 	synchronized void smoke() {
 		try {
+			int gapTime = getGapTime();
 			System.out.print("\n" + name + "_owner is making cigarette, wait for 1 sec");
 			/* Making cigarette for 1 sec */
 			Thread.sleep(1000);
 			/******************************/
 			
-			waitingTime = getGapTime();
-			System.out.print("\n" + name + "_owner is smoking, wait for " + waitingTime/1000 + " sec");
-			sleepLoadingBar(waitingTime);
+			System.out.print("\n" + name + "_owner is smoking, wait for " + SMOKING_TIME/1000 + " sec.");
+			sleepLoadingBar(SMOKING_TIME); // smkr sleeps in this method.
 			table.consumeIngred();
+			
+			System.out.print("\n Gap time = " + gapTime/1000 + " second.");
+			/* Gap time after smkr smokes */
+			Thread.sleep(gapTime);
+			/******************************/
+			
+			System.out.println("\n==============================");
+			System.out.print("Table now has: ");		
 		} catch(Exception e) {}
 	}
 	
