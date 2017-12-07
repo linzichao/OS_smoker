@@ -64,6 +64,15 @@
             </ImageView>
          </children>
       </StackPane>
+      <AnchorPane layoutX="472.0" layoutY="293.0" prefHeight="99.0" prefWidth="305.0">
+         <children>
+            <Text fx:id="txtSmoke" layoutX="53.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="221.0">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
       <StackPane layoutX="524.0" layoutY="430.0" prefHeight="150.0" prefWidth="200.0">
          <children>
             <ImageView fx:id="table" fitHeight="150.0" fitWidth="239.0" pickOnBounds="true" preserveRatio="true">
@@ -101,7 +110,7 @@
       </AnchorPane>
       <StackPane layoutX="1006.0" layoutY="55.0" prefHeight="142.0" prefWidth="112.0">
          <children>
-            <ImageView fx:id="tobacco" fitHeight="99.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="tobacco" fitHeight="115.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../image/tobacco.png" />
                </image>
@@ -110,7 +119,7 @@
       </StackPane>
       <StackPane layoutX="1006.0" layoutY="279.0" prefHeight="142.0" prefWidth="112.0">
          <children>
-            <ImageView fx:id="paper" fitHeight="116.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="paper" fitHeight="115.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../image/paper.png" />
                </image>
@@ -157,25 +166,37 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="472.0" layoutY="293.0" prefHeight="99.0" prefWidth="305.0">
+      <AnchorPane layoutX="429.0" layoutY="128.0" prefHeight="69.0" prefWidth="357.0">
          <children>
-            <Text fx:id="txtSmoke" layoutX="53.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="221.0">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
-      <StackPane layoutX="212.0" layoutY="55.0" prefHeight="142.0" prefWidth="112.0" />
-      <StackPane layoutX="212.0" layoutY="279.0" prefHeight="142.0" prefWidth="112.0" />
-      <StackPane layoutX="212.0" layoutY="509.0" prefHeight="142.0" prefWidth="112.0" />
-      <AnchorPane layoutX="532.0" layoutY="118.0" prefHeight="78.0" prefWidth="194.0">
-         <children>
-            <Label fx:id="timerLabel" layoutX="40.0" layoutY="25.0" prefHeight="29.0" prefWidth="114.0" text="Counter">
+            <Label fx:id="timerLabel1" layoutY="25.0" prefHeight="29.0" prefWidth="255.0" text="TimeCountDown:">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
+            <Label fx:id="timerLabel" layoutX="223.0" layoutY="25.0" prefHeight="29.0" prefWidth="59.0" text="Counter">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="timerLabel11" layoutX="282.0" layoutY="25.0" prefHeight="29.0" prefWidth="59.0" text="sec.">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="429.0" layoutY="55.0" prefHeight="69.0" prefWidth="357.0">
+         <children>
+            <Label fx:id="timerLabel11" layoutY="25.0" prefHeight="29.0" prefWidth="124.0" text="Event:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Text fx:id="event" layoutX="108.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="221.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>

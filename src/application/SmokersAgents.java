@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import javafx.util.Duration;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +19,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
-import javafx.event.EventHandler;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -50,6 +50,9 @@ class Table implements Initializable{
 	
 	@FXML
 	private Label timerLabel;
+	
+	@FXML
+	public Text event;
 	  
 	@Override
 	public void initialize(URL url,ResourceBundle rb) {
@@ -60,8 +63,7 @@ class Table implements Initializable{
 	public TranslateTransition fade2 = new TranslateTransition(); // For the second ingredient on table
 	public TranslateTransition fade3 = new TranslateTransition(); // For the smoking image 
 	private Timeline timeline;
-	private IntegerProperty timeSeconds = new SimpleIntegerProperty(15);
-
+	private IntegerProperty timeSeconds =  new SimpleIntegerProperty(0);
 	
 	/* GUI item end */
 	
@@ -73,23 +75,39 @@ class Table implements Initializable{
 
 	synchronized void getIngred(String ingred) {
 		if(numIngredInTable < 2) {
+			
 			int waitingTime = getGapTime();
+			
 			/* agent puts its ingredient on the table. */
 			if(ingred.equals("TOBACCO") && tableIngred[0] == false) {
 				tableIngred[0] = true;
 				System.out.print("TOBACCO, gap time = " + waitingTime/1000 + " sec. ");
-				handle();
+				// GUI control
+		   		Platform.runLater(() ->{
+		   			countdown(waitingTime/1000);
+		   		});
 				move(SmokersAgents.TOBACCO, numIngredInTable);
+				// GUI control end
 			}
 			else if(ingred.equals("PAPER") && tableIngred[1] == false) {
 				tableIngred[1] = true;
 				System.out.print("PAPER, gap time = " + waitingTime/1000 + " sec. ");
+				// GUI control
+				Platform.runLater(() ->{
+					countdown(waitingTime/1000);
+		   		});
 				move(SmokersAgents.PAPER,numIngredInTable);
+				// GUI control end
 			}
 			else if(ingred.equals("MATCH") && tableIngred[2] == false) {
 				tableIngred[2] = true;
 				System.out.print("MATCH, gap time = " + waitingTime/1000 + " sec. ");
+				// GUI control 
+				Platform.runLater(() ->{
+					countdown(waitingTime/1000);
+		   		});
 				move(SmokersAgents.MATCH,numIngredInTable);
+				// GUI control end
 			}
 			numIngredInTable ++;
 			
@@ -119,15 +137,12 @@ class Table implements Initializable{
 	synchronized boolean giveIngred(String smkrName) {
 		if(numIngredInTable == 2) {
 			if(smkrName.equals("TOBACCO") && tableIngred[0] == false) { // if smkrTOBACCO comes in , and no tobacco on the table.
-				//moveAll();
 				return true;
 			}
 			else if(smkrName.equals("PAPER") && tableIngred[1] == false) { // if smkrPAPER comes in , and no paper on the table.
-				//moveAll();
 				return true;
 			}
 			else if(smkrName.equals("MATCH") && tableIngred[2] == false) { // if smkrMATCH comes in , and no match on the table.
-				//moveAll();
 				return true;
 			}
 		}
@@ -156,16 +171,18 @@ class Table implements Initializable{
 	
 	/* GUI Image motion */
     public void move(int i,int time) {
-    	
-		fade1.setDuration(Duration.seconds(2));
-		fade1.setFromX(506);
+    		
+    		event.setText("Put Ingredients");
+		
+    		fade1.setDuration(Duration.seconds(2));
+		fade1.setFromX(491);
 		fade1.setFromY(getLayoutY(i)-271);
 		fade1.setToY(0);
 		fade1.setToX(0);
 		
 		fade2.setDuration(Duration.seconds(2));
-		fade2.setFromX(364);
-		fade2.setFromY(getLayoutY(i)-364);
+		fade2.setFromX(379);
+		fade2.setFromY(getLayoutY(i)-271);
 		fade2.setToY(0);
 		fade2.setToX(0);
     		
@@ -218,7 +235,7 @@ class Table implements Initializable{
 	
     /* GUI table */
     public void nowSmoke(String name) {
-    	
+      	
     		int y = 0;
     		
     		switch (name) {
@@ -245,6 +262,7 @@ class Table implements Initializable{
     		table2.setImage(new Image("file:src/image/white.png"));
     		
 		txtSmoke.setText("Smoking!!!");
+		event.setText("Smoker smoking");
     		
     }
     
@@ -276,18 +294,20 @@ class Table implements Initializable{
     }
     
     /* GUI countdown */
-    public void handle() {
+    public void countdown(int waitingtime) {
     		
-    		timerLabel.textProperty().bind(timeSeconds.asString());
-        
+    		
+    		timerLabel.textProperty().bind(timeSeconds.asString());    
+    	
     		if (timeline != null) {
             timeline.stop();
         }
-        
-    		timeSeconds.set(15);
+    		
+    		timeSeconds.setValue(waitingtime);
+	
         timeline = new Timeline();
         timeline.getKeyFrames().add(
-                new KeyFrame(Duration.seconds(15+1),
+                new KeyFrame(Duration.seconds(waitingtime),
                 new KeyValue(timeSeconds, 0)));
         timeline.playFromStart();
     }
@@ -329,7 +349,15 @@ class Smoker extends Thread{
 		try {
 			int gapTime = getGapTime();
 			System.out.print("\n" + name + "_owner is making cigarette, wait for 1 sec");
-			table.nowSmoke(name); //GUI:: remove ingredient and smoke
+			
+			//GUI:: remove ingredient and smoke
+			table.nowSmoke(name); 
+			//GUI:: countdown
+			Platform.runLater(() ->{
+	   			table.countdown(SMOKING_TIME/1000 + 1);
+	   		});
+			//GUI control end
+			
 			/* Making cigarette for 1 sec */
 			Thread.sleep(1000);
 			/******************************/
@@ -338,7 +366,14 @@ class Smoker extends Thread{
 			sleepLoadingBar(SMOKING_TIME); // smkr sleeps in this method.
 			table.consumeIngred();
 			
-			System.out.print("\n Gap time = " + gapTime/1000 + " second.");
+			System.out.print("\n Gap time = " + gapTime/1000 + " second.");	
+			//GUI:: countdown
+			Platform.runLater(() ->{
+				table.event.setText("Gap Time");
+	   			table.countdown(gapTime/1000);
+	   		});
+			//GUI control end
+			
 			/* Gap time after smkr smokes */
 			Thread.sleep(gapTime);
 			/******************************/
