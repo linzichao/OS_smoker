@@ -14,7 +14,13 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.scene.control.Label;
+import javafx.event.EventHandler;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class SmokersAgents{
 
@@ -41,6 +47,9 @@ class Table implements Initializable{
 	
 	@FXML 
 	private ImageView smoking;
+	
+	@FXML
+	private Label timerLabel;
 	  
 	@Override
 	public void initialize(URL url,ResourceBundle rb) {
@@ -50,6 +59,9 @@ class Table implements Initializable{
 	public TranslateTransition fade1 = new TranslateTransition(); // For thr first ingredient on table 
 	public TranslateTransition fade2 = new TranslateTransition(); // For the second ingredient on table
 	public TranslateTransition fade3 = new TranslateTransition(); // For the smoking image 
+	private Timeline timeline;
+	private IntegerProperty timeSeconds = new SimpleIntegerProperty(15);
+
 	
 	/* GUI item end */
 	
@@ -66,6 +78,7 @@ class Table implements Initializable{
 			if(ingred.equals("TOBACCO") && tableIngred[0] == false) {
 				tableIngred[0] = true;
 				System.out.print("TOBACCO, gap time = " + waitingTime/1000 + " sec. ");
+				handle();
 				move(SmokersAgents.TOBACCO, numIngredInTable);
 			}
 			else if(ingred.equals("PAPER") && tableIngred[1] == false) {
@@ -262,6 +275,22 @@ class Table implements Initializable{
     		return y;
     }
     
+    /* GUI countdown */
+    public void handle() {
+    		
+    		timerLabel.textProperty().bind(timeSeconds.asString());
+        
+    		if (timeline != null) {
+            timeline.stop();
+        }
+        
+    		timeSeconds.set(15);
+        timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(15+1),
+                new KeyValue(timeSeconds, 0)));
+        timeline.playFromStart();
+    }
    
 }
 

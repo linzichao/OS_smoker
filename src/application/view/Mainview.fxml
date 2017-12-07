@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -168,5 +169,14 @@
       <StackPane layoutX="212.0" layoutY="55.0" prefHeight="142.0" prefWidth="112.0" />
       <StackPane layoutX="212.0" layoutY="279.0" prefHeight="142.0" prefWidth="112.0" />
       <StackPane layoutX="212.0" layoutY="509.0" prefHeight="142.0" prefWidth="112.0" />
+      <AnchorPane layoutX="532.0" layoutY="118.0" prefHeight="78.0" prefWidth="194.0">
+         <children>
+            <Label fx:id="timerLabel" layoutX="40.0" layoutY="25.0" prefHeight="29.0" prefWidth="114.0" text="Counter">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
