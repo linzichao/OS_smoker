@@ -14,6 +14,9 @@ import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -160,8 +163,8 @@ class Table implements Initializable{
 			/* GUI remove */
 			remove();
 			
-			System.out.println("\n==============================");
-			System.out.print("Table now has: ");		
+			//System.out.println("\n==============================");
+			//System.out.print("Table now has: ");		
 		} catch (Exception e) {}
 	}
 
@@ -366,7 +369,9 @@ class Smoker extends Thread{
 			sleepLoadingBar(SMOKING_TIME); // smkr sleeps in this method.
 			table.consumeIngred();
 			
-			System.out.print("\n Gap time = " + gapTime/1000 + " second.");	
+			System.out.println("\n==============================");
+			
+			System.out.println("\nGap time = " + gapTime/1000 + " second.");	
 			//GUI:: countdown
 			Platform.runLater(() ->{
 				table.event.setText("Gap Time");
@@ -401,7 +406,6 @@ class Smoker extends Thread{
 			System.out.println();
 			for(int i = 0; i < 100; i++) {
 				System.out.print(strLeft + strRight.substring(i) + "    " + i + "%\r");
-				//System.out.print("DB_0");
 				strLeft += "*";
 				
 				/* smkr sleeps here. */
@@ -417,16 +421,31 @@ class Agent extends Thread {
 	
 	private Table table;
 	private String myIngred;
+	private CountDownLatch startSignal;
+	private static CyclicBarrier barrier = new CyclicBarrier(3);
 	
 	/* constructor */
-	public Agent(Table table, String name) {
+	public Agent(Table table, String name, CountDownLatch startSignal) {
 		this.table = table;
 		this.myIngred = name;
+		this.startSignal = startSignal;
 	}
 
 	public void run() {
+		try {
+			startSignal.await();
+		}
+		catch(InterruptedException e) {}
+		
 		while(true) {    
 			putIngred();
+			
+			try {
+				barrier.await();
+			}
+			catch(InterruptedException e) {}
+			catch(BrokenBarrierException e) {}
+			barrier.reset();
 		}
 	}
 

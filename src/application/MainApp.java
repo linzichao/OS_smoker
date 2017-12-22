@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.CountDownLatch;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -26,15 +27,17 @@ public class MainApp extends Application {
     
     public Table table = new Table();
     
+    CountDownLatch startSignal = new CountDownLatch(1);
+    
 	// Create smkrs.
 	public Smoker tobaccoSmoker =  new Smoker(table,"TOBACCO",SmokersAgents.TOBACCO);
 	public Smoker paperSmoker = new Smoker(table,"PAPER",SmokersAgents.PAPER); 
 	public Smoker matchSmoker = new Smoker(table,"MATCH",SmokersAgents.MATCH);
 
 	// Create agts.
-	public Agent tobaccoAgent = new Agent(table, "TOBACCO");
-	public Agent paperAgent = new Agent(table, "PAPER");
-	public Agent matchAgent = new Agent(table, "MATCH");
+	public Agent tobaccoAgent = new Agent(table, "TOBACCO", startSignal);
+	public Agent paperAgent = new Agent(table, "PAPER", startSignal);
+	public Agent matchAgent = new Agent(table, "MATCH", startSignal);
     
     
     @Override
@@ -135,6 +138,9 @@ public class MainApp extends Application {
 	        		tobaccoSmoker.start();
 	        		paperSmoker.start();
 	        		matchSmoker.start();
+	        		
+	        		startSignal.countDown(); // start
+	        		
                 
                 
             } catch (IOException e) {
