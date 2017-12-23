@@ -1,11 +1,11 @@
 package application;
 
 //import java.util.Random;
-import org.apache.commons.math3.distribution.ExponentialDistribution; 
+import org.apache.commons.math3.distribution.ExponentialDistribution;
+
 
 /// GUI Library
 import javafx.scene.image.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import javafx.util.Duration;
@@ -14,9 +14,7 @@ import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.CyclicBarrier;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -33,8 +31,9 @@ public class SmokersAgents{
 
 	public static void main(String[] args){
 	}	
+	
+	
 }
-
 
 class Table implements Initializable{
 	
@@ -76,7 +75,7 @@ class Table implements Initializable{
 	ExponentialDistribution ed = new ExponentialDistribution(8);
 	final int GUI_TRANSITION_TIME = 2000; // 2 sec
 
-	synchronized void getIngred(String ingred) {
+	synchronized void getIngred(String ingred, Agent agt) {
 		if(numIngredInTable < 2) {
 			
 			int waitingTime = getGapTime();
@@ -122,6 +121,13 @@ class Table implements Initializable{
 			/*******************************************************************************************/
 		}
 		try {
+			if(numIngredInTable == 3) {
+				agt.setPriority(6);
+			}
+			else {
+				agt.setPriority(5);
+			}
+			
 			/* agt blocks here. */
 			wait();
 			/*******************/
@@ -130,8 +136,8 @@ class Table implements Initializable{
 	
 	int getGapTime() {
 		int waitingTime = 0;
-		// Let waitingTime in the range 3 <= time <= 13
-		while(waitingTime < 3 || waitingTime > 13) {
+		// Let waitingTime in the range 3 <= time <= 5
+		while(waitingTime < 3 || waitingTime > 5) {
 			waitingTime = (int) ed.sample();
 		}
 		return waitingTime * 1000 + GUI_TRANSITION_TIME;
@@ -314,7 +320,40 @@ class Table implements Initializable{
                 new KeyValue(timeSeconds, 0)));
         timeline.playFromStart();
     }
-   
+       
+}
+
+class Agent extends Thread {
+	
+	private Table table;
+	private String myIngred;
+	private CountDownLatch startSignal;
+//	private static CyclicBarrier barrier = new CyclicBarrier(3);
+	
+	/* constructor */
+	public Agent(Table table, String name, CountDownLatch startSignal) {
+		this.table = table;
+		this.myIngred = name;
+		this.startSignal = startSignal;
+	}
+
+	public void run() {
+		try {
+			startSignal.await();
+		}
+		catch(InterruptedException e) {}
+		
+		while(true) {    
+			putIngred();
+		}
+	}
+
+	synchronized void putIngred() {
+		// The agt tries to put ingred onto table, then it waits.
+		// If: 1. The table is available, the agt puts and then waits.
+		//	   2. The table is full, the agt just waits.
+		table.getIngred(myIngred, this);
+	}
 }
 
 class Smoker extends Thread{
@@ -390,8 +429,8 @@ class Smoker extends Thread{
 	
 	int getGapTime() {
 		int waitingTime = 0;
-		// Let waitingTime in the range 3 <= time <= 13
-		while(waitingTime < 3 || waitingTime > 13) {
+		// Let waitingTime in the range 3 <= time <= 5
+		while(waitingTime < 3 || waitingTime > 5) {
 			waitingTime = (int) ed.sample();
 		}
 		return waitingTime * 1000 + GUI_TRANSITION_TIME;
@@ -416,46 +455,3 @@ class Smoker extends Thread{
 		} catch(Exception e) {}			
 	}
 }
-
-class Agent extends Thread {
-	
-	private Table table;
-	private String myIngred;
-	private CountDownLatch startSignal;
-	private static CyclicBarrier barrier = new CyclicBarrier(3);
-	
-	/* constructor */
-	public Agent(Table table, String name, CountDownLatch startSignal) {
-		this.table = table;
-		this.myIngred = name;
-		this.startSignal = startSignal;
-	}
-
-	public void run() {
-		try {
-			startSignal.await();
-		}
-		catch(InterruptedException e) {}
-		
-		while(true) {    
-			putIngred();
-			
-			try {
-				barrier.await();
-			}
-			catch(InterruptedException e) {}
-			catch(BrokenBarrierException e) {}
-			barrier.reset();
-		}
-	}
-
-	synchronized void putIngred() {
-		// The agt tries to put ingred onto table, then it waits.
-		// If: 1. The table is available, the agt puts and then waits.
-		//	   2. The table is full, the agt just waits.
-		table.getIngred(myIngred);
-	}
-	
-    
-}
-   
