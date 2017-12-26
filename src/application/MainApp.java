@@ -151,7 +151,7 @@ public class MainApp extends Application {
                       player.seek(Duration.ZERO);
                     }
                 });
-                //player.play();
+                player.play();
                 
 	        		System.out.print("Table now has: ");
 	
