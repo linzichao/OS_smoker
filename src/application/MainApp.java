@@ -6,7 +6,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
 
-
+import application.SmokersAgents.Agent;
+import application.SmokersAgents.Smoker;
+import application.SmokersAgents.Table;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,20 +32,31 @@ public class MainApp extends Application {
         
     public startController _start = new startController();
     
-    public Table table = new Table();
+    public SmokersAgents smkrAgt = new SmokersAgents();
+    public Table table = smkrAgt.new Table();
     
     CountDownLatch startSignal = new CountDownLatch(1);
     
+    Agent[] agts = new Agent[] {
+    		smkrAgt.new Agent(table, "TOBACCO", startSignal), 
+    		smkrAgt.new Agent(table, "PAPER", startSignal),
+    		smkrAgt.new Agent(table, "MATCH", startSignal)};
+    
+    
+    		
 	// Create smkrs.
-	public Smoker tobaccoSmoker =  new Smoker(table,"TOBACCO",SmokersAgents.TOBACCO);
-	public Smoker paperSmoker = new Smoker(table,"PAPER",SmokersAgents.PAPER); 
-	public Smoker matchSmoker = new Smoker(table,"MATCH",SmokersAgents.MATCH);
+	public Smoker tobaccoSmoker =  smkrAgt.new Smoker(table,"TOBACCO",SmokersAgents.TOBACCO);
+	public Smoker paperSmoker = smkrAgt.new Smoker(table,"PAPER",SmokersAgents.PAPER); 
+	public Smoker matchSmoker = smkrAgt.new Smoker(table,"MATCH",SmokersAgents.MATCH);
 
 	// Create agts.
-	public Agent tobaccoAgent = new Agent(table, "TOBACCO", startSignal);
-	public Agent paperAgent = new Agent(table, "PAPER", startSignal);
-	public Agent matchAgent = new Agent(table, "MATCH", startSignal);
-    
+	/*
+	public Agent tobaccoAgent = smkrAgt.new Agent(table, "TOBACCO", startSignal);
+	public Agent paperAgent = smkrAgt.new Agent(table, "PAPER", startSignal);
+	public Agent matchAgent = smkrAgt.new Agent(table, "MATCH", startSignal);
+    */
+	
+	
     
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -138,14 +151,20 @@ public class MainApp extends Application {
                       player.seek(Duration.ZERO);
                     }
                 });
-                player.play();
+                //player.play();
                 
 	        		System.out.print("Table now has: ");
 	
+	        		/*
 	        		tobaccoAgent.start();
 	        		paperAgent.start();
 	        		matchAgent.start();
-	
+	*/
+	        		smkrAgt.setAgents(agts);
+	        		agts[0].start();
+	        		agts[1].start();
+	        		agts[2].start();
+	        		
 	        		tobaccoSmoker.start();
 	        		paperSmoker.start();
 	        		matchSmoker.start();
