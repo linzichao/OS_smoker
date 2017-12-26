@@ -55,6 +55,15 @@ class Table implements Initializable{
 	
 	@FXML
 	public Text event;
+	
+	@FXML
+	public Text tobacco_count;
+	
+	@FXML
+	public Text paper_count;
+	
+	@FXML
+	public Text match_count;
 	  
 	@Override
 	public void initialize(URL url,ResourceBundle rb) {
@@ -66,6 +75,10 @@ class Table implements Initializable{
 	public TranslateTransition fade3 = new TranslateTransition(); // For the smoking image 
 	private Timeline timeline;
 	private IntegerProperty timeSeconds =  new SimpleIntegerProperty(0);
+	
+	private int round_timer1 = 0;
+	private int round_timer2 = 0;
+	private int round_timer3 = 0;
 	
 	/* GUI item end */
 	
@@ -249,12 +262,18 @@ class Table implements Initializable{
     		
     		switch (name) {
     			case "TOBACCO":
+    				round_timer1++;
+    				tobacco_count.setText(String.valueOf(round_timer1));
     				y = 55;
     				break;
     			case "PAPER":
+    				round_timer2++;
+    				paper_count.setText(String.valueOf(round_timer2));
     				y = 279;
     				break;
     			case "MATCH":
+    				round_timer3++;
+    				match_count.setText(String.valueOf(round_timer3));
     				y = 509;
     				break;
     		}

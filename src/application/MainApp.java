@@ -1,13 +1,11 @@
 package application;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
 
-
-//import application.Table.Agent;
-//import application.Table.Smoker;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -19,6 +17,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 
 
@@ -45,10 +46,8 @@ public class MainApp extends Application {
     
     
     @Override
-    public void start(Stage primaryStage) {
-
-    	
-        
+    public void start(Stage primaryStage) throws Exception {
+       
     	    this.primaryStage = primaryStage;
         this.primaryStage.setTitle("OS_chainsmoker");
         
@@ -132,6 +131,14 @@ public class MainApp extends Application {
                 // Set person overview into the center of root layout.
                 rootLayout.setCenter(personOverview);
                 
+                Media media = new Media(getClass().getResource("/music/BGM.mp3").toURI().toString());      
+                MediaPlayer player = new MediaPlayer(media);  
+                player.setOnEndOfMedia(new Runnable() {
+                    public void run() {
+                      player.seek(Duration.ZERO);
+                    }
+                });
+                player.play();
                 
 	        		System.out.print("Table now has: ");
 	
@@ -149,7 +156,10 @@ public class MainApp extends Application {
                 
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            } catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         
     	
